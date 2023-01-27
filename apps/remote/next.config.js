@@ -8,14 +8,17 @@ const nextConfig = {
   nx: {
     svgr: false,
   },
-  webpack(config) {
+  webpack(config, options) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: 'host',
+        name: 'remote',
         filename: 'static/chunks/remoteEntry.js',
         remotes: {},
         extraOptions: {},
-        exposes: {},
+        exposes: {
+          './HomePage': './pages/index',
+          './useAuthHook': './hooks/useAuth',
+        },
         shared: {},
       })
     );
